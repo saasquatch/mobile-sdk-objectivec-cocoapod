@@ -31,7 +31,7 @@ Open your newly created `Podfile`. Add the following to your target(s):
 
 ```ruby
 target 'SampleApp' do
-  pod 'SaaSquatchSDKiOS', '~> 1.0.0'
+  pod 'saasquath-sdk-swift', '~> 1.0.0'
 end
 ```
 
@@ -61,11 +61,11 @@ Make sure you add it to your app targets.
 
 Select your project in the Project navigator like this:
 
-<img src="ios_sdk_screen3.png"></img>
+<img src="https://raw.githubusercontent.com/saasquatch/mobile-sdk-swift-cocoapod/master/ios_sdk_screen3.png"></img>
 
 Make sure to select "Copy items if needed" and add the framework to your app's target:
 
-![Add framework screenshot](ios_sdk_screen4.png?raw=true "Your options should look like this")
+![Add framework screenshot](https://raw.githubusercontent.com/saasquatch/mobile-sdk-swift-cocoapod/master/ios_sdk_screen4.png "Your options should look like this")
 
 Under the **General** tab scroll down to **Embedded Binaries**.
 Click the + icon and add `saasquatch.framework`.
@@ -73,14 +73,14 @@ Make sure `saasquatch.framework` is also listed under **Linked Frameworks and Li
 
 It should look like this:
 
-![General tab screenshot](ios_sdk_screen1.png?raw=true =347x153 "Your General tab should look like this")
+![General tab screenshot](https://raw.githubusercontent.com/saasquatch/mobile-sdk-swift-cocoapod/master/ios_sdk_screen1.png "Your General tab should look like this")
 
 Next, head to the **Build Phases** tab.
 If it is not already listed under **Link Binary With Libraries** and **Embed Frameworkds**, add it now.
 
 Your **Build Phases** tab should look like this:
 
-![Build Phases tab screenshot](ios_sdk_screen2.png?raw=true =413x254 "Your Build Phases tab should look like this")
+![Build Phases tab screenshot](https://raw.githubusercontent.com/saasquatch/mobile-sdk-swift-cocoapod/master/ios_sdk_screen2.png "Your Build Phases tab should look like this")
 
 The SDK is now ready for use in your project.
 
@@ -156,7 +156,7 @@ We provide a `completionHandler` which will be called with `userInfo` and `error
 In our completionHandler, we will parse through the returned data and save anything useful for later. 
 
 ```swift
-completionHandler: {(userInfo: AnyObject?, error: NSError?} in
+completionHandler: {(userInfo: AnyObject?, error: NSError?) in
     
     // First, check if an error occurred
     if error != nil {
