@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "saasquatch-sdk-objectivec"
-  s.version      = "1.0.0"
+  s.version      = "1.0.2"
   s.summary      = "The Objective-C version of the Referral SaaSquatch iOS SDK"
 
   # This description is used to generate tags and improve search results.
@@ -60,10 +60,10 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios
 
   #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
+  s.ios.deployment_target = "8.0"
   # s.osx.deployment_target = "10.7"
   # s.watchos.deployment_target = "2.0"
   # s.tvos.deployment_target = "9.0"
@@ -75,7 +75,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/saasquatch/mobile-sdk-objectivec-cocoapod.git", :tag => "1.0.0" }
+  s.source       = { :git => "https://github.com/saasquatch/mobile-sdk-objectivec-cocoapod.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -89,7 +89,7 @@ Pod::Spec.new do |s|
   # s.source_files  = "Classes", "Classes/**/*.{h,m}"
   # s.exclude_files = "Classes/Exclude"
 
-  # s.public_header_files = "Classes/**/*.h"
+  s.public_header_files = "saasquatch/saasquatch.framework/Headers/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -103,8 +103,8 @@ Pod::Spec.new do |s|
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
 
-  s.preserve_paths = "saasquatch.framework"
-  s.vendored_frameworks = "saasquatch.framework"
+  s.preserve_paths = "saasquatch/saasquatch.framework"
+  s.vendored_frameworks = "saasquatch/saasquatch.framework"
 
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -126,7 +126,7 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  # s.requires_arc = true
+  s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
