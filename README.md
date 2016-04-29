@@ -112,7 +112,7 @@ import saasquatch
 ####Register a user with Referral SaaSquatch
 
 To register a user, we provide user information to Referral SaaSquatch. We provide our tenant alias which identifies our app. A userId from our system is passed to SaaSquatch to uniquely identify our users. We pass in an accountId, which Referral SaaSquatch uses to group users together; see [Shared vs Solo Accounts](http://docs.referralsaasquatch.com/shared-vs-solo-accounts/ "Shared vs Solo Accounts") to see what you should use here.
-Lastly, we provide a valid JSON object containing information about our user. For a description of the available `userInfo` fields, please see (TODO: LINK SAASQUATCH DOCS). Here is an example:
+Lastly, we provide a valid JSON object containing information about our user. For a description of the available `userInfo` fields, please see [SaaSquatch docs](http://docs.referralsaasquatch.com/api/methods/#open_create_user "Referral SaaSquatch REST API reference"). Here is an example:
 
 ```swift
 // This is your tenant alias which identifies you with Referral SaaSquatch
@@ -210,7 +210,7 @@ Saasquatch.applyReferralCode("BOBTESTERSON", forTenant: tenant, toUserID: userId
             return
         }
 
-        // For a complete list of reward types and fields, please visit (TODO: REFERENCE SQUATCH DOCS)
+        // For a complete list of reward types and fields, please visit http://docs.referralsaasquatch.com/api/methods/#open_apply_code
         if type == "PCT_DISCOUNT" {
             guard let percent = reward["discountPercent"] as? Int else {
                 return
@@ -221,7 +221,7 @@ Saasquatch.applyReferralCode("BOBTESTERSON", forTenant: tenant, toUserID: userId
     })
 ```
 
-During your user's registration, you may want to look up a referral code they entered to check it's existance and get information about the associated reward. The call is very similar to `applyReferralCode` and returns the same reward information in `userInfo`. The tenant and referral code are the only required parameters, but if you make too many calls without a secret you may get a 401: Unauthorized response. For a complete description of the available fields, visit the (TODO: LINK REFERRAL SAASQUATCH DOCS)
+During your user's registration, you may want to look up a referral code they entered to check it's existance and get information about the associated reward. The call is very similar to `applyReferralCode` and returns the same reward information in `userInfo`. The tenant and referral code are the only required parameters, but if you make too many calls without a secret you may get a 401: Unauthorized response. For a complete description of the available fields, visit the [SaaSquatch docs](http://docs.referralsaasquatch.com/api/methods/#open_apply_code "Referral SaaSquatch REST API reference").
 
 ```swift
 Saasquatch.lookupReferralCode("BOBTESTERSON", forTenant: tenant, withSecret: secret,
@@ -273,7 +273,8 @@ Great! We registered our new user with Referral SaaSquatch and successfully made
 
 Let's add one more bit of functionality to our app to demonstrate `listReferralsForTenant`. Bob Testerson referred our new user, Claire Fraser, and we would like to show him a list of everyone he's referred (it's a lot). To do this, we call `listReferralsForTenant`.
 
-This method looks up all the referrals for us, the tenant. The other required parameter is a secret to authenticate the request. The remainder of the parameters are options for filtering this list. In this case, we want to list only the referrals where Bob is the *referrer*. We will pass in Bob's userId and accountId and parse the list returned in `userInfo`. For a description of the options for filtering, see the (TODO: LINK THE DOCS).
+This method looks up all the referrals for us, the tenant. The other required parameter is a secret to authenticate the request. The remainder of the parameters are options for filtering this list. In this case, we want to list only the referrals where Bob is the *referrer*. We will pass in Bob's userId and accountId and parse the list returned in `userInfo`. For a description of the options for filtering, see the [SaaSquatch
+docs](http://docs.referralsaasquatch.com/api/methods/#open_list_referrals "Referral SaaSquatch REST API reference").
 
 ```swift
 Saasquatch.listReferralsForTenant(tenant, withSecret: secret, forReferringAccountID: bobsAccountId, forReferringUserID: bobsUserId, beforeDateReferralPaid: nil, beforeDateReferralEnded: nil, withReferredModerationStatus: nil, withReferrerModerationStatus: nil, withLimit: nil, withOffset: nil,
@@ -320,4 +321,4 @@ For a working demo implementation, check out our [Sample App](https://github.com
 
 For a detailed description of the `Saasquatch` class and it's public methods, please visit the API level docs (TODO: LINK THE DOCS).
 
-For a reference of the fields available in `userInfo` please visit the Referral SaaSquatch REST API docs (TODO: LINK THE REST API DOCS)
+For a reference of the fields available in `userInfo` please visit the [SaaSquatch Docs](http://docs.referralsaasquatch.com/api/methods/ "Referral SaaSquatch REST API docs"),
