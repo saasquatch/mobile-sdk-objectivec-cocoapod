@@ -319,6 +319,6 @@ Saasquatch.listReferralsForTenant(tenant, withSecret: secret, forReferringAccoun
 
 For a working demo implementation, check out our [Sample App](https://github.com/saasquatch/mobile-sdk-ios-sample "Sample App").
 
-For a detailed description of the `Saasquatch` class and it's public methods, please visit the API level docs (TODO: LINK THE DOCS).
+For a detailed description of the `Saasquatch` class and it's public methods, please visit the [SDK Docs](http://docs.referralsaasquatch.com//mobile/ios/docs/ "API level docs").
 
 For a reference of the fields available in `userInfo` please visit the [SaaSquatch Docs](http://docs.referralsaasquatch.com/api/methods/ "Referral SaaSquatch REST API docs"),
