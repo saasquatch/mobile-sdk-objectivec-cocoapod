@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "saasquatch-sdk-objectivec"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "The Objective-C version of the Referral SaaSquatch iOS SDK"
 
   # This description is used to generate tags and improve search results.

@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/saasquatch.h</key>
 		<data>
-		ZVBFhpfJJ91blsicHgrdIp6HaXk=
+		CQ8r7Yb422CUk6mKCyfrmUhL0Ds=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -23,11 +23,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZVBFhpfJJ91blsicHgrdIp6HaXk=
+			CQ8r7Yb422CUk6mKCyfrmUhL0Ds=
 			</data>
 			<key>hash2</key>
 			<data>
-			8zcakM04V8UFKk2VDqFYDGqIPEUZLujOEmfVwXn4Ttk=
+			nW/wsZqJIzLnCSll8Wyj/dNyrsi4HjP+2T2JKliPbCQ=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
