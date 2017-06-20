@@ -53,7 +53,6 @@ FOUNDATION_EXPORT const unsigned char saasquatchVersionString[];
  *  @param userId             A user ID from your system (must be unique for every user).
  *  @param accountID          We use this ID to link a group of users together.
  *  @param token              The JWT to sign the request.
- *  @param userInfo           A Foundation object from which to generate JSON for the request.
  *  @param completionHandler  A block object to be executed when the task finishes.
  *
  *  <b>See:</b>  <a href="http://docs.referralsaasquatch.com/api/methods/#open_get_user"> Referral SaaSquatch REST API reference</a> for a list of available fields.

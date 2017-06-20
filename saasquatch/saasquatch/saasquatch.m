@@ -10,12 +10,7 @@
 #import "saasquatch.h"
 
 
-#ifdef DEBUG
-static NSString *const urlString = @"http://localhost:8080/api/v1";
-#else
 static NSString *const urlString = @"https://app.referralsaasquatch.com/api/v1";
-#endif
-
 static NSURL *baseURL;
 static NSURLSession *session;
 
