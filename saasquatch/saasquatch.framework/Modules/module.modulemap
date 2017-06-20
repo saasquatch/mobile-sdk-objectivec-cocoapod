@@ -1,6 +1,0 @@
-framework module saasquatch {
-  umbrella header "saasquatch.h"
-
-  export *
-  module * { export * }
-}
