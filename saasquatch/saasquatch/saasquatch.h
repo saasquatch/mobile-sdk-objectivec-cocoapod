@@ -150,4 +150,64 @@ FOUNDATION_EXPORT const unsigned char saasquatchVersionString[];
                     withOffset:(NSString *)offset
              completionHandler:(void (^)(id userInfo,
                                          NSError *error))completionHandler;
+
+/*!
+ *  Generates a cookie account/user with Referral SaaSquatch.
+ *
+ *  @param tenant            Identifies which tenant to connect to.
+ *  @param token             The JWT to sign the request.
+ *  @param userInfo            A Foundation object from which to generate JSON for the request.
+ *  @param completionHandler A block object to be executed when the task finishes.
+ *
+ *  <b>See:</b>  <a href="http://docs.referralsaasquatch.com/api/methods"> Referral SaaSquatch REST API reference</a> for a list of available fields.
+ *
+ */
++ (void)createCookieUser:(NSString *)tenant
+               withToken:(NSString *)token
+            withUserInfo:(id)userInfo
+       completionHandler:(void (^)(id, NSError *))completionHandler;
+
+
+/*!
+ *  Updates/creates a user and an account with Referral SaaSquatch.
+ *
+ *  @param tenant            Identifies which tenant to connect to.
+ *  @param userID            When included, filters the results to only referrals that were referred by users with this user id.
+ *  @param accountID         When included, filters the results to only referrals that were referred by users with this account id.
+ *  @param token             The JWT to sign the request.
+ *  @param userInfo            A Foundation object from which to generate JSON for the request.
+ *  @param completionHandler A block object to be executed when the task finishes.
+ *
+ *  <b>See:</b>  <a href="http://docs.referralsaasquatch.com/api/methods"> Referral SaaSquatch REST API reference</a> for a list of available fields.
+ *
+ */
++ (void)userUpsert:(NSString *)tenant
+        withUserID:(NSString *)userID
+     withAccountID: (NSString *)accountID
+         withToken:(NSString *)token
+      withUserInfo:(id)userInfo
+ completionHandler:(void (^)(id, NSError *))completionHandler;
+
+
+/*!
+ *  Allows customers to request share links for a particular engagement medium
+ *
+ *  @param tenant            Identifies which tenant to connect to.
+ *  @param token             The JWT to sign the request.
+ *  @param accountID         When included, filters the results to only referrals that were referred by users with this account id.
+ *  @param userID            When included, filters the results to only referrals that were referred by users with this user id.
+ *  @param engagementMedium  [OPTIONAL] Identifies which medium to return. Can be one of [EMAIL, EMBED, HOSTED, MOBILE, POPUP, UNKNOWN]
+ *  @param shareMedium       [OPTIONAL] Identifies which sharelink to return. Can be one of [DIRECT, EMAIL, FACEBOOK, FBMESSENGER, LINKEDIN, SMS, TWITTER, UNKNOWN, WHATSAPP] *  @param completionHandler A block object to be executed when the task finishes.
+ *
+ *  <b>See:</b>  <a href="http://docs.referralsaasquatch.com/api/methods"> Referral SaaSquatch REST API reference</a> for a list of available fields.
+ *
+ */
++ (void)getShareLinks:(NSString *)tenant
+            withToken:(NSString *)token
+   forReferringUserID:(NSString *)userID
+   forReferringAccountID:(NSString *)accountID
+   withEngagementMedium:(NSString *)engagementMedium
+   withShareMedium:(NSString *)shareMedium
+   completionHandler:(void (^)(id, NSError *))completionHandler;
+
 @end

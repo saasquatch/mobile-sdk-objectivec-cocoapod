@@ -86,6 +86,146 @@ static NSURLSession *session;
     [task resume];
 }
 
++ (void)createCookieUser:(NSString *)tenant
+                    withToken:(NSString *)token
+                 withUserInfo:(id)userInfo
+            completionHandler:(void (^)(id, NSError *))completionHandler {
+    
+    NSURL *url = [baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"/%@/open/user/cookie_user", tenant]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    
+    if(token != nil) {
+        [request setValue:token forHTTPHeaderField:@"X-SaaSquatch-User-Token"];
+    }
+    
+
+    request.HTTPMethod = @"PUT";
+    
+    NSData *data;
+    NSError *error;
+    data = [NSJSONSerialization dataWithJSONObject:userInfo options:0 error:&error];
+    if (error) {
+        completionHandler(nil, error);
+        return;
+    }
+    
+    request.HTTPBody = data;
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
+        
+        if (error){
+            completionHandler(nil, error);
+            return;
+        }
+        
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        
+        NSStringEncoding encoding = NSUTF8StringEncoding;
+        NSString *textEncodingName = response.textEncodingName;
+        CFStringRef cfTestEncodingName = (__bridge CFStringRef) textEncodingName;
+        if (textEncodingName) {
+            CFStringEncoding cfStringEncoding = CFStringConvertIANACharSetNameToEncoding(cfTestEncodingName);
+            encoding = CFStringConvertEncodingToNSStringEncoding(cfStringEncoding);
+        }
+        
+        if ([httpResponse statusCode] == 200) {
+            id userInfo;
+            NSError *error;
+            
+            userInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            if (error) {
+                completionHandler(nil, error);
+                return;
+            }
+            
+            completionHandler(userInfo, nil);
+            
+        } else {
+            NSString *errorString = [[NSString alloc] initWithData:data encoding:encoding];
+            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : errorString };
+            NSError *error = [NSError errorWithDomain:@"HTTP error" code:[httpResponse statusCode] userInfo:userInfo];
+            completionHandler(nil, error);
+            return;
+        }
+        
+    }];
+    
+    [task resume];
+}
+
++ (void)userUpsert:(NSString *)tenant
+                    withUserID:(NSString *)userID
+                withAccountID: (NSString *)accountID
+               withToken:(NSString *)token
+            withUserInfo:(id)userInfo
+       completionHandler:(void (^)(id, NSError *))completionHandler {
+    
+    NSURL *url = [baseURL URLByAppendingPathComponent:[NSString stringWithFormat:@"/%@/open/account/%@/user/%@", tenant, accountID, userID]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    
+    if(token != nil) {
+        [request setValue:token forHTTPHeaderField:@"X-SaaSquatch-User-Token"];
+    }
+    
+    
+    request.HTTPMethod = @"PUT";
+    
+    NSData *data;
+    NSError *error;
+    data = [NSJSONSerialization dataWithJSONObject:userInfo options:0 error:&error];
+    if (error) {
+        completionHandler(nil, error);
+        return;
+    }
+    
+    request.HTTPBody = data;
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
+        
+        if (error){
+            completionHandler(nil, error);
+            return;
+        }
+        
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        
+        NSStringEncoding encoding = NSUTF8StringEncoding;
+        NSString *textEncodingName = response.textEncodingName;
+        CFStringRef cfTestEncodingName = (__bridge CFStringRef) textEncodingName;
+        if (textEncodingName) {
+            CFStringEncoding cfStringEncoding = CFStringConvertIANACharSetNameToEncoding(cfTestEncodingName);
+            encoding = CFStringConvertEncodingToNSStringEncoding(cfStringEncoding);
+        }
+        
+        if ([httpResponse statusCode] == 200) {
+            id userInfo;
+            NSError *error;
+            
+            userInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            if (error) {
+                completionHandler(nil, error);
+                return;
+            }
+            
+            completionHandler(userInfo, nil);
+            
+        } else {
+            NSString *errorString = [[NSString alloc] initWithData:data encoding:encoding];
+            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : errorString };
+            NSError *error = [NSError errorWithDomain:@"HTTP error" code:[httpResponse statusCode] userInfo:userInfo];
+            completionHandler(nil, error);
+            return;
+        }
+        
+    }];
+    
+    [task resume];
+}
+
 + (void)userForTenant:(NSString *)tenant
            withUserID:(NSString *)userId
         withAccountID:(NSString *)accountID
@@ -208,6 +348,52 @@ static NSURLSession *session;
     }
     if (offset) {
         NSString *queryParam = [NSString stringWithFormat:@"offset=%@", offset];
+        [queryParams addObject:queryParam];
+    }
+    
+    BOOL first = YES;
+    for (NSString *param in queryParams) {
+        if (first) {
+            urlString = [[urlString stringByAppendingString:@"?"] stringByAppendingString:param];
+            first = NO;
+        } else {
+            urlString = [[urlString stringByAppendingString:@"&"] stringByAppendingString:param];
+        }
+    }
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    if (url == nil) {
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"A URL cannot be formed from the parameters" forKey:NSLocalizedDescriptionKey];
+        NSError *error = [NSError errorWithDomain:@"Malformed URL" code:0 userInfo:userInfo];
+        completionHandler(nil, error);
+        return;
+    }
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:token forHTTPHeaderField:@"X-SaaSquatch-User-Token"];
+    
+    NSURLSessionDataTask *task = [self saasquatchDataTaskStatusOKWithRequest:request withCallback:completionHandler];
+    [task resume];
+}
+
++ (void)getShareLinks:(NSString *)tenant
+        withToken:(NSString *)token
+        forReferringUserID:(NSString *)userID
+        forReferringAccountID:(NSString *)accountID
+        withEngagementMedium:(NSString *)engagementMedium
+        withShareMedium:(NSString *)shareMedium
+        completionHandler:(void (^)(id, NSError *))completionHandler {
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@/open/account/%@/user/%@/shareurls", baseURL, tenant, accountID, userID];
+    
+    NSMutableArray *queryParams = [[NSMutableArray alloc] init];
+    if (engagementMedium) {
+        NSString *queryParam = [NSString stringWithFormat:@"engagementMedium=%@", engagementMedium];
+        [queryParams addObject:queryParam];
+    }
+    if (shareMedium) {
+        NSString *queryParam = [NSString stringWithFormat:@"shareMedium=%@", shareMedium];
         [queryParams addObject:queryParam];
     }
     

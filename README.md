@@ -10,6 +10,3 @@ Our SDK is compatible with iOS apps supporting iOS 8.0 and above. It requires Xc
 
 ## Integration
 Please refer to our [iOS SDK Quickstart Guide](https://docs.referralsaasquatch.com/mobile/ios/quickstart/) for installation and integration information.
-
-## Sample App
-A sample app that shows how our iOS SDK can be integrated into your apps can be found [here](https://github.com/saasquatch/mobile-sdk-ios-sample). Instructions on how to set up and use our sample app have been included.
