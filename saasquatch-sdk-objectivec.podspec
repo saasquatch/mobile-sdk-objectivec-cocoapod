@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'saasquatch-sdk-objectivec'
-  s.version          = '1.1.1'
+  s.version          = '1.2.1'
   s.summary          = 'The Objective-C version of the Referral SaaSquatch IOS SDK'
   s.description      = <<-DESC
 This SDK was built to interact with Referral Saasquatch. For more information, please visit https://docs.referralsaasquatch.com/mobile/ios/
