@@ -1,3 +1,9 @@
+# Archived
+
+Replaced with https://github.com/saasquatch/squatch-ios
+
+<details><summary>Previous Readme</summary>
+
 # Referral SaaSquatch iOS SDK - Objective-C
 
 
@@ -10,3 +16,5 @@ Our SDK is compatible with iOS apps supporting iOS 8.0 and above. It requires Xc
 
 ## Integration
 Please refer to our [iOS SDK Quickstart Guide](https://docs.referralsaasquatch.com/mobile/ios/quickstart/) for installation and integration information.
+  
+</details>
